@@ -20,6 +20,10 @@ public class User {
         return fullName;
     }
 
+    public boolean checkPassword(String password){
+        return password == userPassword;
+    }
+
     public String getUserEmail(){
         return userEmail;
     }
