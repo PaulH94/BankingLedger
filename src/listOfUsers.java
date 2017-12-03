@@ -26,7 +26,12 @@ public class listOfUsers {
     public boolean checkForUser(String email, String password){
         if(!Users.containsKey(email))
             return false;
+        //System.out.println("LOOK: " + Users.get(email).checkPassword(password));
         return Users.get(email).checkPassword(password);
+    }
+
+    public void editUser(String email, User editedUser){
+        Users.put(email,editedUser);
     }
 
     public User getUser(String userEmail){
@@ -36,12 +41,6 @@ public class listOfUsers {
 
     public int getNumOfUsers(){
         return  numOfUsers;
-    }
-
-    public void printhm(){
-        for(String i: Users.keySet()){
-
-        }
     }
 
 }

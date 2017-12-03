@@ -9,4 +9,9 @@ public class Transactions {
         this.transactionType = tType;
         this.transactionAmount = tAmount;
     }
+
+    @Override
+    public String toString(){
+        return(transactionType + ": " + transactionAmount);
+    }
 }
