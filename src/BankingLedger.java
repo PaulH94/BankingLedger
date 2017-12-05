@@ -2,9 +2,14 @@
  * Created by Paul Huynh on 11/28/2017.
  * This program is an interview assignment.
  * The mission is to create a banking ledger
+ * The program need to be able to Create a new account, login, record a deposit,
+ * record a withdrawal, check balance, See transaction history, and log out.
  */
 import java.io.*;
 import java.util.*;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class BankingLedger {
 
@@ -42,7 +47,7 @@ public class BankingLedger {
                         }
                         break;
                 case 2: System.out.println("SIGNING UP");                           //option two is to create an account
-                        User newUser = signingUp();
+                        User newUser = signingUp(Users.getNumOfUsers());
                         if(Users.addUser(newUser)){                                 //if the account doesnt exit, a new account is made
                             System.out.println("Account successfully made");
                         }
@@ -56,7 +61,7 @@ public class BankingLedger {
             }
         }
 
-        System.out.println("Goodbye!");
+        System.out.println("Goodbye!");                                             //end of program
     }
 
 
@@ -109,15 +114,39 @@ public class BankingLedger {
 
 
     //This function is for when the user is signing up for an account
-    private static User signingUp(){
+    private static User signingUp(int accountNUmber){
         Scanner scan = new Scanner(System.in);
-        System.out.println("Fullname: ");                 //get their name
+        boolean validEmail = false;
+        System.out.println("Full name: ");                 //get their name
         String fName = scan.nextLine();
-        System.out.println("Email: ");                    //get their email
-        String email = scan.next();
+
+        String email = "";
+        while(validEmail == false){
+            System.out.println("Email: ");                //get their email
+            email = scan.next();
+            validEmail = simpleEmailValidation(email);
+            if(validEmail == false)
+                System.out.println("Invalid Email");
+        }
+
         System.out.println("Password: ");                 //get their password
         String pw = scan.next();
 
-        return new User(fName,email,pw,0);       //make the account
+        return new User(fName,email,pw,accountNUmber);       //make the account
+    }
+
+
+    //Simple regex to see if the amil is a valid format
+    //COULD DO: use an email library to check if the email exist
+    private static boolean simpleEmailValidation(String email){
+
+        //The pattern
+        String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+
+        Matcher matcher = pattern.matcher(email);
+
+        return matcher.matches();                         //Return id the email matches the pattern
     }
 }
