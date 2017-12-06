@@ -29,39 +29,49 @@ public class BankingLedger {
             System.out.println("[2] to sign up");
             System.out.println("[3] to end session");
 
-            int option = scan.nextInt();                        //Get the User's input
+            int option = scan.nextInt();                                        //Get the User's input
 
-            switch (option){                                    //switch statement
-                case 1: System.out.println("SIGNING IN");       //First option is to sign in
-                        System.out.print("Email: ");
-                        String email = scan.next();
-                        System.out.print("Password: ");
-                        String password = scan.next();          //asked for email and password
-                        if(Users.checkForUser(email,password)){                     //check to see if user exist
-                            User currentUser = Users.getUser(email);                //if they do receive their data
-                            System.out.println("Log in success");
-                            Users.editUser(email,whenSignedIn(currentUser));        //update the user information, usually their transactions
-                        }
-                        else{                                                       //if the user does not exist, loop back
-                            System.out.println("Not a Valid User");
-                        }
-                        break;
-                case 2: System.out.println("SIGNING UP");                           //option two is to create an account
-                        User newUser = signingUp(Users.getNumOfUsers());
-                        if(Users.addUser(newUser)){                                 //if the account doesnt exit, a new account is made
-                            System.out.println("Account successfully made");
-                        }
-                        else{                                                       //else, tell the user that they already have an account
-                            System.out.println("User already exist");
-                        }
-                        break;
-                case 3: System.out.println("ENDING");                               //option three, end the session
-                        session = false;
-                        break;
+            switch (option){                                                    //switch statement
+                case 1:
+                    System.out.println("SIGNING IN");                           //First option is to sign in
+                    System.out.print("Email: ");
+                    String email = scan.next();
+                    System.out.print("Password: ");
+                    String password = scan.next();                              //asked for email and password
+                    if(Users.checkForUser(email,password)){                     //check to see if user exist
+                        User currentUser = Users.getUser(email);                //if they do receive their data
+                        System.out.println("Log in success");
+                        Users.editUser(email,whenSignedIn(currentUser));        //update the user information, usually their transactions
+                    }
+                    else{                                                       //if the user does not exist, loop back
+                        System.out.println("Not a Valid User");
+                    }
+                    break;
+
+                case 2:
+                    System.out.println("SIGNING UP");                           //option two is to create an account
+                    User newUser = signingUp(Users.getNumOfUsers());
+                    if(Users.addUser(newUser)){                                 //if the account doesnt exit, a new account is made
+                        System.out.println("Account successfully made");
+                    }
+                    else{                                                       //else, tell the user that they already have an account
+                        System.out.println("User already exist");
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("ENDING");                               //option three, end the session
+                    session = false;
+                    break;
+
+                default:
+                    System.out.println("Invalid input");
+                    break;
+
             }
         }
 
-        System.out.println("Goodbye!");                                             //end of program
+        System.out.println("Goodbye!");                                         //end of program
     }
 
 
@@ -106,6 +116,9 @@ public class BankingLedger {
                     System.out.println("LOGGING OUT OF USER ACCOUNT");
                     loggedIn = false;
                     break;
+                default:
+                    System.out.println("INVALID INPUT");
+                    break;
             }
         }
 
@@ -121,7 +134,7 @@ public class BankingLedger {
         String fName = scan.nextLine();
 
         String email = "";
-        while(validEmail == false){
+        while(validEmail == false){                       //This is to make sure that the email is at least in an email format
             System.out.println("Email: ");                //get their email
             email = scan.next();
             validEmail = simpleEmailValidation(email);

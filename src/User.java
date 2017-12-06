@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Paul Huynh on 11/28/2017.
- * User class
+ * User class, this class will store all of the user's information
  */
 public class User {
     private String fullName;                                            //User's fullname

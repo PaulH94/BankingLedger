@@ -48,8 +48,8 @@ public class listOfUsers {
 
     //Used this to return a user by email
     public User getUser(String userEmail){
-        User gUser = Users.get(userEmail);
-        return gUser;
+        //User gUser = Users.get(userEmail);
+        return Users.get(userEmail);
     }
 
     //Return back the number of users
